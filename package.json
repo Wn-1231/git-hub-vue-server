@@ -1,0 +1,19 @@
+{
+  "name": "git-hub-action-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wn-1231/git-hub-action-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wn-1231/git-hub-action-server/issues"
+  },
+  "homepage": "https://github.com/Wn-1231/git-hub-action-server#readme"
+}
