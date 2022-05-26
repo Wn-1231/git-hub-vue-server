@@ -1,5 +1,5 @@
 {
-  "name": "git-hub-action-server",
+  "name": "git-hub-vue-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wn-1231/git-hub-action-server.git"
+    "url": "git+https://github.com/Wn-1231/git-hub-vue-server.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Wn-1231/git-hub-action-server/issues"
+    "url": "https://github.com/Wn-1231/git-hub-vue-server/issues"
   },
-  "homepage": "https://github.com/Wn-1231/git-hub-action-server#readme"
+  "homepage": "https://github.com/Wn-1231/git-hub-vue-server#readme"
 }
