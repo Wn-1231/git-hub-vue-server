@@ -1,6 +1,6 @@
 FROM node
 # 镜像名称
-LABEL name="git-hub-action-server"
+LABEL name="git-hub-server"
 # 版本
 LABEL version="1.0"
 # 当前项目 copy 到容器 /app 路径中
