@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "start": "pm2 start server.js --name git-hub-vue-server",
+    "stop": "pm2 stop git-hub-vue-server",
+    "restart": "pm2 restart git-hub-vue-server",
+    "logs": "pm2 logs git-hub-vue-server"
   },
   "repository": {
     "type": "git",
@@ -18,5 +22,8 @@
   "homepage": "https://github.com/Wn-1231/git-hub-vue-server#readme",
   "dependencies": {
     "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "pm2": "^6.0.5"
   }
 }
