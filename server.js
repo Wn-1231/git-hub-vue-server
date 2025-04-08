@@ -1,7 +1,6 @@
 let http = require("http");
 let crypto = require("crypto");
 var spawn = require("child_process").spawn;
-let sendMail = require("./sendMail");
 
 const SECRET = "123456";
 
@@ -45,25 +44,50 @@ let server = http.createServer(function (req, res) {
         // 监听CI/CD 脚本运行日志
         child.stdout.on("data", function (buffer) {
           buffers.push(buffer);
+          console.log(
+            `[${payload.repository.name}] stdout: ${buffer.toString()}`
+          );
         });
+        // 监听错误日志
+        child.stderr.on("data", function (buffer) {
+          console.error(
+            `[${payload.repository.name}] stderr: ${buffer.toString()}`
+          );
+        });
+
+        // 监听执行错误
+        child.on("error", function (err) {
+          console.error(
+            `[${payload.repository.name}] 执行出错: ${err.message}`
+          );
+        });
+
+        // 监听进程结束
+        child.on("close", function (code) {
+          console.log(
+            `[${payload.repository.name}] 子进程退出，退出码 ${code}`
+          );
+        });
+
         // 监听CI/CD 构建结果，发送邮件进行通知
         child.stdout.on("end", function () {
-          let logs = Buffer.concat(buffers).toString();
-          sendMail(
-            `
-            <h1>部署日期: ${new Date()}</h1>
-            <h2>部署人: ${payload.head_commit.author.name}</h2>
-            <h2>部署邮箱: ${payload.head_commit.author.email}</h2>
-            <h2>提交信息: ${
-              payload.head_commit && payload.head_commit["message"]
-            }</h2>
-            <h2>布署日志:</h2>
-            <div>log: </br>
-              ${logs.replace("\r\n", "<br/>")}
-            </div>
-            `,
-            payload.repository.name
-          );
+          console.log("CI/CD 构建完成");
+          // let logs = Buffer.concat(buffers).toString();
+          // sendMail(
+          //   `
+          //   <h1>部署日期: ${new Date()}</h1>
+          //   <h2>部署人: ${payload.head_commit.author.name}</h2>
+          //   <h2>部署邮箱: ${payload.head_commit.author.email}</h2>
+          //   <h2>提交信息: ${
+          //     payload.head_commit && payload.head_commit["message"]
+          //   }</h2>
+          //   <h2>布署日志:</h2>
+          //   <div>log: </br>
+          //     ${logs.replace("\r\n", "<br/>")}
+          //   </div>
+          //   `,
+          //   payload.repository.name
+          // );
         });
       }
     });
@@ -71,6 +95,6 @@ let server = http.createServer(function (req, res) {
     res.end("Now Found!");
   }
 });
-server.listen(4000, '0.0.0.0', () => {
+server.listen(4000, "0.0.0.0", () => {
   console.log("服务正在4000端口上启动!");
 });
