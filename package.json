@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Wn-1231/git-hub-vue-server/issues"
   },
-  "homepage": "https://github.com/Wn-1231/git-hub-vue-server#readme"
+  "homepage": "https://github.com/Wn-1231/git-hub-vue-server#readme",
+  "dependencies": {
+    "nodemailer": "^6.10.0"
+  }
 }
