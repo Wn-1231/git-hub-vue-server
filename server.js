@@ -1,7 +1,8 @@
 let http = require("http");
 let crypto = require("crypto");
 var spawn = require("child_process").spawn;
-
+let fs = require("fs");
+let path = require("path");
 const SECRET = "123456";
 
 // 加密验证
@@ -92,9 +93,23 @@ let server = http.createServer(function (req, res) {
       }
     });
   } else {
-    res.end("Now Found!");
+    // 读取状态页面HTML文件
+    try {
+      let htmlContent = fs.readFileSync(
+        path.join(__dirname, "views", "index.html"),
+        "utf-8"
+      );
+
+      res.setHeader("Content-Type", "text/html");
+      res.end(htmlContent);
+    } catch (error) {
+      console.error("读取HTML文件错误:", error);
+      res.statusCode = 500;
+      res.end("服务器内部错误");
+    }
   }
 });
 server.listen(4000, "0.0.0.0", () => {
+// server.listen(4000, () => {
   console.log("服务正在4000端口上启动!");
 });
